@@ -1,0 +1,209 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "tempfile",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tempfile",
+        "description": "tempfile",
+        "detail": "tempfile",
+        "documentation": {}
+    },
+    {
+        "label": "webdriver",
+        "importPath": "selenium",
+        "description": "selenium",
+        "isExtraImport": true,
+        "detail": "selenium",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "Links",
+        "importPath": "classes.CONSTANTS",
+        "description": "classes.CONSTANTS",
+        "isExtraImport": true,
+        "detail": "classes.CONSTANTS",
+        "documentation": {}
+    },
+    {
+        "label": "By",
+        "importPath": "selenium.webdriver.common.by",
+        "description": "selenium.webdriver.common.by",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.by",
+        "documentation": {}
+    },
+    {
+        "label": "Options",
+        "importPath": "selenium.webdriver.chrome.options",
+        "description": "selenium.webdriver.chrome.options",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.chrome.options",
+        "documentation": {}
+    },
+    {
+        "label": "Service",
+        "importPath": "selenium.webdriver.chrome.service",
+        "description": "selenium.webdriver.chrome.service",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.chrome.service",
+        "documentation": {}
+    },
+    {
+        "label": "WebDriverWait",
+        "importPath": "selenium.webdriver.support.ui",
+        "description": "selenium.webdriver.support.ui",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support.ui",
+        "documentation": {}
+    },
+    {
+        "label": "ChromeDriverManager",
+        "importPath": "webdriver_manager.chrome",
+        "description": "webdriver_manager.chrome",
+        "isExtraImport": true,
+        "detail": "webdriver_manager.chrome",
+        "documentation": {}
+    },
+    {
+        "label": "expected_conditions",
+        "importPath": "selenium.webdriver.support",
+        "description": "selenium.webdriver.support",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support",
+        "documentation": {}
+    },
+    {
+        "label": "init_driver",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def init_driver():\n    temp_user_data_dir = tempfile.mkdtemp()\n    download_dir = os.path.join(os.getcwd(), \"downloads\")\n    if not os.path.exists(download_dir):\n        os.makedirs(download_dir)\n    chrome_options = Options()\n    # chrome_options.add_argument(\"--headless\")\n    chrome_options.add_argument(\"--no-sandbox\")\n    chrome_options.add_argument(\"--disable-dev-shm-usage\")\n    chrome_options.add_argument(f\"user-data-dir={temp_user_data_dir}\")",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "wait_element",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def wait_element(css_selector=\".div-loader.h-16.w-16.ng-tns-c303-1\", timeout=30):\n    wait = WebDriverWait(driver, timeout)\n    try:\n        print(\"Esperando elemento aparacer...\")\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"Elemento apareceu!\")\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Elemento sumiu!\")\n    except Exception as e:\n        print(f\"❌ Timeout esperando o elemento {css_selector}: {e}\")",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "find_element_by_css",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def find_element_by_css(css_selector):\n    return driver.find_element(By.CSS_SELECTOR, css_selector)\ndef access_page(url):\n    driver.get(url)\n    print(f\"🔹 Accessing page: {url}\")\n    title = driver.title\n    print(f\"📄 Page title: {title}\")\n    wait_element(\".flex.items-center.justify-center.fixed.z-50.bg-gray-200.h-screen.w-screen.inset-0.ng-tns-c98-0.ng-star-inserted\")\n    print(\"✅ Page loaded!\")\n    time.sleep(1)",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "access_page",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def access_page(url):\n    driver.get(url)\n    print(f\"🔹 Accessing page: {url}\")\n    title = driver.title\n    print(f\"📄 Page title: {title}\")\n    wait_element(\".flex.items-center.justify-center.fixed.z-50.bg-gray-200.h-screen.w-screen.inset-0.ng-tns-c98-0.ng-star-inserted\")\n    print(\"✅ Page loaded!\")\n    time.sleep(1)\ndef fill_login_form():\n    wait = WebDriverWait(driver, 10)",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "fill_login_form",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def fill_login_form():\n    wait = WebDriverWait(driver, 10)\n    login_input = find_element_by_css(\"input.flex.border.appearance-none.leading-tight\")\n    login_button = find_element_by_css(\"button.flex.justify-center.items-center.cursor-pointer\")\n    login_input.send_keys(EMAIL)\n    login_button.click()\n    wait_element()\n    time.sleep(1)\n    password_input = find_element_by_css(\"input.flex.border.appearance-none.leading-tight.w-full.pl-10.pr-4.pr-8.h-10.text-xs.border-gray-400.text-gray-800.rounded\")\n    password_input.send_keys(PASSWORD)",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "data_listing_page",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def data_listing_page():\n    time.sleep(1)\n    wait_element(\".block-page-div-loader\")\n    print(\"✅ Page loaded!\")\n    time.sleep(1)\n    wait_element(\".block-page-div-loader\")\n    time.sleep(1)\n    print(\"✅ Data loaded!\")\n    time.sleep(3)\ndef data_page_filter():",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "data_page_filter",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def data_page_filter():\n    wait = WebDriverWait(driver, 30)\n    def select_cycle(cycle_text):\n        \"\"\"\n        Procura e clica no ciclo desejado dentro do container com classe 'scrollable-content'.\n        Aceita parte do texto, por exemplo, \"SÃO PAULO CAPITAL\" encontra \"SÃO PAULO CAPITAL 2024\".\n        :param cycle_text: Texto (ou parte) que identifica o ciclo.\n        :param timeout: Tempo máximo para aguardar o elemento (em segundos).\n        \"\"\"\n        xpath = f\"//div[contains(@class, 'scrollable-content')]//div[contains(normalize-space(.), '{cycle_text}')]\"",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "run_bot",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def run_bot():\n    print(\"🔹 Starting BOT_CEF...\")\n    url = Links.url\n    try:\n        access_page(url)\n        fill_login_form()\n        data_listing_page()\n        data_page_filter()\n    finally:\n        driver.quit()",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL",
+        "kind": 5,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "EMAIL = os.getenv(\"EMAIL\")\nPASSWORD = os.getenv(\"PASSWORD\")\ndef init_driver():\n    temp_user_data_dir = tempfile.mkdtemp()\n    download_dir = os.path.join(os.getcwd(), \"downloads\")\n    if not os.path.exists(download_dir):\n        os.makedirs(download_dir)\n    chrome_options = Options()\n    # chrome_options.add_argument(\"--headless\")\n    chrome_options.add_argument(\"--no-sandbox\")",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "PASSWORD",
+        "kind": 5,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "PASSWORD = os.getenv(\"PASSWORD\")\ndef init_driver():\n    temp_user_data_dir = tempfile.mkdtemp()\n    download_dir = os.path.join(os.getcwd(), \"downloads\")\n    if not os.path.exists(download_dir):\n        os.makedirs(download_dir)\n    chrome_options = Options()\n    # chrome_options.add_argument(\"--headless\")\n    chrome_options.add_argument(\"--no-sandbox\")\n    chrome_options.add_argument(\"--disable-dev-shm-usage\")",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "driver",
+        "kind": 5,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "driver = init_driver()\ndef wait_element(css_selector=\".div-loader.h-16.w-16.ng-tns-c303-1\", timeout=30):\n    wait = WebDriverWait(driver, timeout)\n    try:\n        print(\"Esperando elemento aparacer...\")\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"Elemento apareceu!\")\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Elemento sumiu!\")\n    except Exception as e:",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "Links",
+        "kind": 6,
+        "importPath": "classes.CONSTANTS",
+        "description": "classes.CONSTANTS",
+        "peekOfCode": "class Links:\n    url = \"https://web.eloverde.com.br/\"",
+        "detail": "classes.CONSTANTS",
+        "documentation": {}
+    }
+]
