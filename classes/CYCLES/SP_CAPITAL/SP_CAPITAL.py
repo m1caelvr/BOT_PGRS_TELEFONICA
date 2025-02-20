@@ -21,7 +21,3 @@ class ResponsesSPCAPITAL(SPCAPITAL):
     WEBSITE_TRANSPORTE = "https://tramppo.com.br/"
     WEBSITE_DESTINACAO = "https://tramppo.com.br/"
     
-    # input_date = driver.find_element(By.CSS_SELECTOR, "input.ng2-flatpickr-input.flatpickr-input.ng-star-inserted")
-    # random_date = generate_random_date()
-    # input_date.send_keys(random_date)
-    # print(f"✅ Campo de data preenchido com '{random_date}'.")
