@@ -287,15 +287,6 @@
         "documentation": {}
     },
     {
-        "label": "SPCAPITAL",
-        "kind": 6,
-        "importPath": "classes.CYCLES.SP_CAPITAL",
-        "description": "classes.CYCLES.SP_CAPITAL",
-        "peekOfCode": "class SPCAPITAL:\n    CAN_FILL = True\n    NAME = \"SÃO PAULO CAPITAL\"",
-        "detail": "classes.CYCLES.SP_CAPITAL",
-        "documentation": {}
-    },
-    {
         "label": "Links",
         "kind": 6,
         "importPath": "classes.CONSTANTS",
