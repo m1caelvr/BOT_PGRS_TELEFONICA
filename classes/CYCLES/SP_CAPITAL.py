@@ -1,3 +1,0 @@
-class SPCAPITAL:
-    CAN_FILL = True
-    NAME = "SÃO PAULO CAPITAL"
