@@ -1,29 +1,11 @@
 [
     {
-        "label": "importlib",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "importlib",
-        "description": "importlib",
-        "detail": "importlib",
-        "documentation": {}
-    },
-    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "os",
         "description": "os",
         "detail": "os",
-        "documentation": {}
-    },
-    {
-        "label": "pkgutil",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pkgutil",
-        "description": "pkgutil",
-        "detail": "pkgutil",
         "documentation": {}
     },
     {
@@ -36,12 +18,30 @@
         "documentation": {}
     },
     {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
         "label": "tempfile",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "tempfile",
         "description": "tempfile",
         "detail": "tempfile",
+        "documentation": {}
+    },
+    {
+        "label": "importlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "importlib",
+        "description": "importlib",
+        "detail": "importlib",
         "documentation": {}
     },
     {
@@ -61,6 +61,14 @@
         "documentation": {}
     },
     {
+        "label": "ZoneInfo",
+        "importPath": "zoneinfo",
+        "description": "zoneinfo",
+        "isExtraImport": true,
+        "detail": "zoneinfo",
+        "documentation": {}
+    },
+    {
         "label": "webdriver",
         "importPath": "selenium",
         "description": "selenium",
@@ -77,11 +85,35 @@
         "documentation": {}
     },
     {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
         "label": "By",
         "importPath": "selenium.webdriver.common.by",
         "description": "selenium.webdriver.common.by",
         "isExtraImport": true,
         "detail": "selenium.webdriver.common.by",
+        "documentation": {}
+    },
+    {
+        "label": "Keys",
+        "importPath": "selenium.webdriver.common.keys",
+        "description": "selenium.webdriver.common.keys",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.keys",
         "documentation": {}
     },
     {
@@ -125,11 +157,28 @@
         "documentation": {}
     },
     {
+        "label": "ResponsesSPCAPITAL",
+        "importPath": "classes.CYCLES.SP_CAPITAL.SP_CAPITAL",
+        "description": "classes.CYCLES.SP_CAPITAL.SP_CAPITAL",
+        "isExtraImport": true,
+        "detail": "classes.CYCLES.SP_CAPITAL.SP_CAPITAL",
+        "documentation": {}
+    },
+    {
         "label": "init_driver",
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def init_driver():\n    temp_user_data_dir = tempfile.mkdtemp()\n    download_dir = os.path.join(os.getcwd(), \"downloads\")\n    if not os.path.exists(download_dir):\n        os.makedirs(download_dir)\n    chrome_options = Options()\n    # chrome_options.add_argument(\"--headless\")\n    chrome_options.add_argument(\"--no-sandbox\")\n    chrome_options.add_argument(\"--disable-dev-shm-usage\")\n    chrome_options.add_argument(f\"user-data-dir={temp_user_data_dir}\")",
+        "peekOfCode": "def init_driver():\n    temp_user_data_dir = tempfile.mkdtemp()\n    download_dir = os.path.join(os.getcwd(), \"downloads\")\n    os.makedirs(download_dir, exist_ok=True)\n    chrome_options = Options()\n    # chrome_options.add_argument(\"--headless\")\n    chrome_options.add_argument(\"--no-sandbox\")\n    chrome_options.add_argument(\"--disable-dev-shm-usage\")\n    chrome_options.add_argument(f\"user-data-dir={temp_user_data_dir}\")\n    prefs = {",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "waitFunc",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader.h-16.w-16.ng-tns-c303-1\", timeWait=30):\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n    except Exception as e:\n        time.sleep(2)\ndef find_element_by_css(css_selector):",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -138,7 +187,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def wait_element(css_selector=\".div-loader.h-16.w-16.ng-tns-c303-1\", timeout=30):\n    wait = WebDriverWait(driver, timeout)\n    try:\n        print(\"Esperando elemento aparacer...\")\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"Elemento apareceu!\")\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Elemento sumiu!\")\n    except Exception as e:\n        print(f\"❌ Timeout esperando o elemento {css_selector}: {e}\")",
+        "peekOfCode": "def wait_element(css_selector=\".div-loader.h-16.w-16.ng-tns-c303-1\", timeWait=30):\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n    except Exception as e:\n        time.sleep(2)\ndef find_element_by_css(css_selector):\n    return driver.find_element(By.CSS_SELECTOR, css_selector)\ndef verify_hour():",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -147,7 +196,16 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def find_element_by_css(css_selector):\n    return driver.find_element(By.CSS_SELECTOR, css_selector)\ndef access_page(url):\n    driver.get(url)\n    print(f\"🔹 Accessing page: {url}\")\n    title = driver.title\n    print(f\"📄 Page title: {title}\")\n    wait_element(\n        \".flex.items-center.justify-center.fixed.z-50.bg-gray-200.h-screen.w-screen.inset-0.ng-tns-c98-0.ng-star-inserted\"\n    )",
+        "peekOfCode": "def find_element_by_css(css_selector):\n    return driver.find_element(By.CSS_SELECTOR, css_selector)\ndef verify_hour():\n    now = datetime.now(ZoneInfo(\"America/Sao_Paulo\"))\n    start = now.replace(hour=7, minute=30, second=0, microsecond=0)\n    end = now.replace(hour=9, minute=0, second=0, microsecond=0)\n    if start < now < end:\n        print(\"Horário entre 7:30 e 9:00 detectado. Encerrando a execução do script.\")\n        exit(0)\ndef access_page(url):",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "verify_hour",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def verify_hour():\n    now = datetime.now(ZoneInfo(\"America/Sao_Paulo\"))\n    start = now.replace(hour=7, minute=30, second=0, microsecond=0)\n    end = now.replace(hour=9, minute=0, second=0, microsecond=0)\n    if start < now < end:\n        print(\"Horário entre 7:30 e 9:00 detectado. Encerrando a execução do script.\")\n        exit(0)\ndef access_page(url):\n    driver.get(url)\n    print(f\"🔹 Accessing page: {url}\")",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -156,7 +214,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def access_page(url):\n    driver.get(url)\n    print(f\"🔹 Accessing page: {url}\")\n    title = driver.title\n    print(f\"📄 Page title: {title}\")\n    wait_element(\n        \".flex.items-center.justify-center.fixed.z-50.bg-gray-200.h-screen.w-screen.inset-0.ng-tns-c98-0.ng-star-inserted\"\n    )\n    print(\"✅ Page loaded!\")\n    time.sleep(1)",
+        "peekOfCode": "def access_page(url):\n    driver.get(url)\n    print(f\"🔹 Accessing page: {url}\")\n    print(f\"📄 Page title: {driver.title}\")\n    wait_element(\".flex.items-center.justify-center.fixed.z-50.bg-gray-200.h-screen.w-screen.inset-0.ng-tns-c98-0.ng-star-inserted\")\n    print(\"✅ Page loaded!\")\n    time.sleep(1)\ndef fill_login_form():\n    wait = waitFunc()\n    login_input = find_element_by_css(\"input.flex.border.appearance-none.leading-tight\")",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -165,7 +223,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def fill_login_form():\n    wait = WebDriverWait(driver, 10)\n    login_input = find_element_by_css(\"input.flex.border.appearance-none.leading-tight\")\n    login_button = find_element_by_css(\n        \"button.flex.justify-center.items-center.cursor-pointer\"\n    )\n    login_input.send_keys(EMAIL)  # type: ignore\n    login_button.click()\n    wait_element()\n    time.sleep(1)",
+        "peekOfCode": "def fill_login_form():\n    wait = waitFunc()\n    login_input = find_element_by_css(\"input.flex.border.appearance-none.leading-tight\")\n    login_button = find_element_by_css(\"button.flex.justify-center.items-center.cursor-pointer\")\n    login_input.send_keys(EMAIL)\n    login_button.click()\n    wait_element()\n    time.sleep(1)\n    password_input = find_element_by_css(\"input.flex.border.appearance-none.leading-tight.w-full.pl-10.pr-4.pr-8.h-10.text-xs.border-gray-400.text-gray-800.rounded\")\n    password_input.send_keys(PASSWORD)",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -179,11 +237,38 @@
         "documentation": {}
     },
     {
-        "label": "data_page_filter",
+        "label": "get_available_cycle",
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def data_page_filter():\n    wait = WebDriverWait(driver, 30)\n    def select_cycle(cycle_text):\n        \"\"\"\n        Procura e clica no ciclo desejado dentro do container com classe 'scrollable-content'.\n        Aceita parte do texto, por exemplo, \"SÃO PAULO CAPITAL\" encontra \"SÃO PAULO CAPITAL 2024\".\n        :param cycle_text: Texto (ou parte) que identifica o ciclo.\n        :param timeout: Tempo máximo para aguardar o elemento (em segundos).\n        \"\"\"\n        xpath = f\"//div[contains(@class, 'scrollable-content')]//div[contains(normalize-space(.), '{cycle_text}')]\"",
+        "peekOfCode": "def get_available_cycle(skip_cycle=None):\n    global LAST_CYCLE\n    cycles_path = CYCLES.__path__[0]\n    for cycle_folder in os.listdir(cycles_path):\n        folder_path = os.path.join(cycles_path, cycle_folder)\n        if os.path.isdir(folder_path):\n            cycle_file = os.path.join(folder_path, f\"{cycle_folder}.py\")\n            if os.path.exists(cycle_file):\n                spec = importlib.util.spec_from_file_location(cycle_folder, cycle_file)\n                module = importlib.util.module_from_spec(spec)",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "select_cycle",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def select_cycle(cycle_text):\n    wait = waitFunc()\n    xpath = f\"//div[contains(@class, 'scrollable-content')]//div[contains(normalize-space(.), '{cycle_text}')]\"\n    try:\n        element = wait.until(EC.element_to_be_clickable((By.XPATH, xpath)))\n        print(f\"✅ Ciclo encontrado: {element.text}\")\n        element.click()\n    except Exception as e:\n        print(f\"❌ Erro: não foi possível encontrar ou clicar no ciclo '{cycle_text}'.\")\n        raise e",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "filter_pending_reports",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def filter_pending_reports():\n    global LAST_CYCLE\n    wait = waitFunc()\n    try:\n        parent_xpath = \"(//div[contains(@class, 'float-right ml-2 ng-star-inserted')])[2]\"\n        link_xpath = f\"{parent_xpath}//a[contains(@class, 'cursor-pointer ng-star-inserted')]\"\n        filter_button = wait.until(EC.element_to_be_clickable((By.XPATH, link_xpath)))\n        print(\"✅ Link encontrado.\")\n        filter_button.click()\n        print(\"✅ Clicado no link encontrado.\")",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "generate_random_date",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def generate_random_date():\n    start_date = datetime(2024, 1, 1)\n    end_date = datetime(2024, 12, 31)\n    delta = end_date - start_date\n    random_days = random.randint(0, delta.days)\n    random_date = start_date + timedelta(days=random_days)\n    return random_date.strftime('%d/%m/%Y')\ndef fill_form(cycle):\n    print(\"Passo 1: Iniciando preenchimento do formulário\")\n    wait_element(\".ngt-shining-xs\")",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -192,7 +277,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def fill_form():\n    print(\"✍️ Preenchendo o formulário...\")\ndef close_pending_issues(tbody, rows):\n    print(\"⚠️ There are pending issues! Starting the process to close them...\")\n    try:\n        pending_row = None\n        for row in rows:\n            try:\n                status_badge = row.find_element(\n                    By.XPATH, \".//div[contains(text(),'Pendente')]\"",
+        "peekOfCode": "def fill_form(cycle):\n    print(\"Passo 1: Iniciando preenchimento do formulário\")\n    wait_element(\".ngt-shining-xs\")\n    wait = waitFunc()\n    def click_input_field(index, tab=False):\n        input_fields = driver.find_elements(By.CSS_SELECTOR, \"div.ng-input > input\")\n        if input_fields and index < len(input_fields):\n            driver.execute_script(\"arguments[0].scrollIntoView(true);\", input_fields[index])\n            time.sleep(0.5)\n            input_fields[index].click()",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -201,16 +286,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def close_pending_issues(tbody, rows):\n    print(\"⚠️ There are pending issues! Starting the process to close them...\")\n    try:\n        pending_row = None\n        for row in rows:\n            try:\n                status_badge = row.find_element(\n                    By.XPATH, \".//div[contains(text(),'Pendente')]\"\n                )\n                status_text = status_badge.text.strip()",
-        "detail": "bot.scraper",
-        "documentation": {}
-    },
-    {
-        "label": "switch_page",
-        "kind": 2,
-        "importPath": "bot.scraper",
-        "description": "bot.scraper",
-        "peekOfCode": "def switch_page():\n    print(\"✅ No pending issues found. Switching to the next page...\")\n    try:\n        actions = WebDriverWait(driver, 10).until(\n            EC.presence_of_all_elements_located((By.XPATH, \"//ngt-action\"))\n        )\n        if len(actions) < 2:\n            print(\"Not enough pagination actions found.\")\n            return False\n        penultimate_action = actions[-2]",
+        "peekOfCode": "def close_pending_issues(rows, cycle):\n    print(\"⚠️ There are pending issues! Starting the process to close them...\")\n    try:\n        pending_row = None\n        for row in rows:\n            try:\n                status_badge = row.find_element(By.XPATH, \".//div[contains(text(),'Pendente')]\")\n                if \"PENDENTE\" in status_badge.text.strip().upper():\n                    pending_row = row\n                    break",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -219,7 +295,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def check_pgrs_pending():\n    time.sleep(1)\n    tbody = driver.find_element(By.CSS_SELECTOR, \"tbody.bg-white\")\n    rows = tbody.find_elements(By.TAG_NAME, \"tr\")\n    pending_count = 0\n    non_pending_count = 0\n    for row in rows:\n        try:\n            status_badge = row.find_element(\n                By.XPATH, \".//div[contains(text(),'Pendente')]\"",
+        "peekOfCode": "def check_pgrs_pending():\n    time.sleep(1)\n    tbody = driver.find_element(By.CSS_SELECTOR, \"tbody.bg-white\")\n    rows = tbody.find_elements(By.TAG_NAME, \"tr\")\n    pending_count = 0\n    non_pending_count = 0\n    for row in rows:\n        try:\n            status_badge = row.find_element(By.XPATH, \".//div[contains(text(),'Pendente')]\")\n            if \"PENDENTE\" in status_badge.text.strip().upper():",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -228,7 +304,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def navigate_pages_until_pending():\n    \"\"\"\n    Navega pelas páginas até encontrar algum registro pendente.\n    \"\"\"\n    while True:\n        pending_count, tbody, rows = check_pgrs_pending()\n        if pending_count > 0:\n            close_pending_issues(tbody, rows)\n            break\n        else:",
+        "peekOfCode": "def navigate_pages_until_pending(cycle, secund_page=False):\n    if secund_page:\n        try:            \n            wait_element(\".ngx-toastr.toast-info\", 60)\n        except:\n            pass\n    try:\n        while True:\n            pending_count, rows = check_pgrs_pending()\n            if pending_count > 0:",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -237,7 +313,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def run_bot():\n    print(\"🔹 Starting BOT_CEF...\")\n    url = Links.url\n    try:\n        access_page(url)\n        fill_login_form()\n        data_listing_page()\n        data_page_filter()\n        navigate_pages_until_pending()\n    finally:",
+        "peekOfCode": "def run_bot():\n    print(\"🔹 Starting BOT_CEF...\")\n    url = Links.url\n    try:\n        access_page(url)\n        fill_login_form()\n        data_listing_page()\n        filter_pending_reports()\n    finally:\n        driver.quit()",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -246,7 +322,7 @@
         "kind": 5,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "EMAIL = os.getenv(\"EMAIL\")\nPASSWORD = os.getenv(\"PASSWORD\")\ndef init_driver():\n    temp_user_data_dir = tempfile.mkdtemp()\n    download_dir = os.path.join(os.getcwd(), \"downloads\")\n    if not os.path.exists(download_dir):\n        os.makedirs(download_dir)\n    chrome_options = Options()\n    # chrome_options.add_argument(\"--headless\")\n    chrome_options.add_argument(\"--no-sandbox\")",
+        "peekOfCode": "EMAIL = os.getenv(\"EMAIL\")\nPASSWORD = os.getenv(\"PASSWORD\")\nLAST_CYCLE = None\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader.h-16.w-16.ng-tns-c303-1\", timeWait=30):\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -255,7 +331,16 @@
         "kind": 5,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "PASSWORD = os.getenv(\"PASSWORD\")\ndef init_driver():\n    temp_user_data_dir = tempfile.mkdtemp()\n    download_dir = os.path.join(os.getcwd(), \"downloads\")\n    if not os.path.exists(download_dir):\n        os.makedirs(download_dir)\n    chrome_options = Options()\n    # chrome_options.add_argument(\"--headless\")\n    chrome_options.add_argument(\"--no-sandbox\")\n    chrome_options.add_argument(\"--disable-dev-shm-usage\")",
+        "peekOfCode": "PASSWORD = os.getenv(\"PASSWORD\")\nLAST_CYCLE = None\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader.h-16.w-16.ng-tns-c303-1\", timeWait=30):\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "LAST_CYCLE",
+        "kind": 5,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "LAST_CYCLE = None\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader.h-16.w-16.ng-tns-c303-1\", timeWait=30):\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n    except Exception as e:",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -264,7 +349,7 @@
         "kind": 5,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "driver = init_driver()\ndef wait_element(css_selector=\".div-loader.h-16.w-16.ng-tns-c303-1\", timeout=30):\n    wait = WebDriverWait(driver, timeout)\n    try:\n        print(\"Esperando elemento aparacer...\")\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"Elemento apareceu!\")\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Elemento sumiu!\")\n    except Exception as e:",
+        "peekOfCode": "driver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader.h-16.w-16.ng-tns-c303-1\", timeWait=30):\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n    except Exception as e:\n        time.sleep(2)",
         "detail": "bot.scraper",
         "documentation": {}
     },
