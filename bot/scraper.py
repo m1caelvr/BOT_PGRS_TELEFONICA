@@ -27,15 +27,17 @@ if os.getenv("GITHUB_ACTIONS") is None:
 
 
 def init_driver():
-    temp_user_data_dir = tempfile.mkdtemp()
     download_dir = os.path.join(os.getcwd(), "downloads")
     os.makedirs(download_dir, exist_ok=True)
 
     chrome_options = Options()
-    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument(f"user-data-dir={temp_user_data_dir}")
+    
+    if "GITHUB_ACTIONS" not in os.environ or os.environ.get("GITHUB_ACTIONS", "").lower() != "true":
+        temp_user_data_dir = tempfile.mkdtemp()
+        chrome_options.add_argument(f"user-data-dir={temp_user_data_dir}")
 
     prefs = {
         "download.default_directory": download_dir,
@@ -49,6 +51,7 @@ def init_driver():
     driver = webdriver.Chrome(service=service, options=chrome_options)
     driver.set_window_size(1051, 846)
     return driver
+
 
 EMAIL = os.getenv("EMAIL")
 PASSWORD = os.getenv("PASSWORD")

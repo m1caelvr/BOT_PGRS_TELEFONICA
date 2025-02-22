@@ -195,7 +195,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def init_driver():\n    temp_user_data_dir = tempfile.mkdtemp()\n    download_dir = os.path.join(os.getcwd(), \"downloads\")\n    os.makedirs(download_dir, exist_ok=True)\n    chrome_options = Options()\n    # chrome_options.add_argument(\"--headless\")\n    chrome_options.add_argument(\"--no-sandbox\")\n    chrome_options.add_argument(\"--disable-dev-shm-usage\")\n    chrome_options.add_argument(f\"user-data-dir={temp_user_data_dir}\")\n    prefs = {",
+        "peekOfCode": "def init_driver():\n    download_dir = os.path.join(os.getcwd(), \"downloads\")\n    os.makedirs(download_dir, exist_ok=True)\n    chrome_options = Options()\n    chrome_options.add_argument(\"--headless\")\n    chrome_options.add_argument(\"--no-sandbox\")\n    chrome_options.add_argument(\"--disable-dev-shm-usage\")\n    if \"GITHUB_ACTIONS\" not in os.environ or os.environ.get(\"GITHUB_ACTIONS\", \"\").lower() != \"true\":\n        temp_user_data_dir = tempfile.mkdtemp()\n        chrome_options.add_argument(f\"user-data-dir={temp_user_data_dir}\")",
         "detail": "bot.scraper",
         "documentation": {}
     },
