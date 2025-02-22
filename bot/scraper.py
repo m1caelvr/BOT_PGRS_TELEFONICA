@@ -34,13 +34,14 @@ def init_driver():
     os.makedirs(download_dir, exist_ok=True)
 
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     
     if not os.getenv("GITHUB_ACTIONS"):
         temp_user_data_dir = tempfile.mkdtemp()
         chrome_options.add_argument(f"user-data-dir={temp_user_data_dir}")
+    else:
+        chrome_options.add_argument("--headless")
 
     prefs = {
         "download.default_directory": download_dir,
