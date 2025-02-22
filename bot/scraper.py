@@ -578,6 +578,7 @@ def run_bot():
 
 
 if __name__ == "__main__":
+    print("🔹 Starting...")
     check_status()
     run_bot()
     
