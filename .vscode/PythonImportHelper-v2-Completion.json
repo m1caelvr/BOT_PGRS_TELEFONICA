@@ -165,6 +165,32 @@
         "documentation": {}
     },
     {
+        "label": "check_status",
+        "importPath": "AUTHORIZATION",
+        "description": "AUTHORIZATION",
+        "isExtraImport": true,
+        "detail": "AUTHORIZATION",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
         "label": "init_driver",
         "kind": 2,
         "importPath": "bot.scraper",
@@ -378,6 +404,15 @@
         "description": "classes.CONSTANTS",
         "peekOfCode": "class Links:\n    url = \"https://web.eloverde.com.br/\"",
         "detail": "classes.CONSTANTS",
+        "documentation": {}
+    },
+    {
+        "label": "check_status",
+        "kind": 2,
+        "importPath": "AUTHORIZATION",
+        "description": "AUTHORIZATION",
+        "peekOfCode": "def check_status():\n    url = \"https://raw.githubusercontent.com/m1caelvr/m1caelvr/refs/heads/main/key.txt\"\n    try:\n        response = requests.get(url, timeout=10)\n        response.raise_for_status()\n        lines = response.text.strip().split(\"\\n\")\n        config = {}\n        for line in lines:\n            if \"=\" in line:\n                key, value = line.split(\"=\")",
+        "detail": "AUTHORIZATION",
         "documentation": {}
     }
 ]

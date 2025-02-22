@@ -19,6 +19,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support import expected_conditions as EC
 from classes.CYCLES.SP_CAPITAL.SP_CAPITAL import ResponsesSPCAPITAL
+from AUTHORIZATION import check_status
 
 
 if os.getenv("GITHUB_ACTIONS") is None:
@@ -570,4 +571,6 @@ def run_bot():
 
 
 if __name__ == "__main__":
+    check_status()
     run_bot()
+    
