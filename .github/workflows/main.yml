@@ -2,7 +2,7 @@ name: Executar Scraper
 
 on:
   schedule:
-    - cron: '30 12 * * *'
+    - cron: "30 12 * * *"
   workflow_dispatch:
 
 jobs:
@@ -13,15 +13,18 @@ jobs:
       - name: Clonar o repositório
         uses: actions/checkout@v3
 
+      - name: Definir variáveis de ambiente
+        run: |
+          echo "EMAIL=${{ secrets.EMAIL }}" >> $GITHUB_ENV
+          echo "PASSWORD=${{ secrets.PASSWORD }}" >> $GITHUB_ENV
+
       - name: Configurar o Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
       - name: Instalar dependências
-        run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Executar o scraper
-        run: python -m bot.scraper.py
+        run: python bot/scraper.py
