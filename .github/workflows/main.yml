@@ -3,7 +3,7 @@ name: Executar Scraper
 on:
   schedule:
     - cron: '30 12 * * *' # Executa às 09h30 BRT (12h30 UTC)
-  workflow_dispatch: # Permite execução manual pelo GitHub Actions
+  workflow_dispatch:
 
 jobs:
   run-scraper:
