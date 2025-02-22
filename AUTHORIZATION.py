@@ -14,9 +14,9 @@ def check_status():
                 config[key.strip()] = value.strip().lower()
 
         if config.get("BOT_PGRS_TELEFONICA") == "true":
-            print("BOT_PGRS_TELEFONICA execução autorizada. Prosseguindo...")
+            print("✅ BOT_PGRS_TELEFONICA execução autorizada. Prosseguindo...")
         else:
-            print("BOT_PGRS_TELEFONICA execução não autorizada. Encerrando.")
+            print("❌ BOT_PGRS_TELEFONICA execução não autorizada. Encerrando.")
             sys.exit(0)
 
     except Exception as e:
