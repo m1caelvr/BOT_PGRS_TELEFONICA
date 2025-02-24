@@ -549,6 +549,9 @@ def navigate_pages_until_pending(cycle, secund_page=False):
             wait_element(".ngx-toastr.toast-info", 60)
         except:
             pass
+        pending_count, rows = check_pgrs_pending()
+            if pending_count < 1:
+                filter_pending_reports()
         
     try:
         while True:
