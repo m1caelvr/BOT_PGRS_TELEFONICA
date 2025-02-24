@@ -550,9 +550,9 @@ def navigate_pages_until_pending(cycle, secund_page=False):
         except:
             pass
         pending_count, rows = check_pgrs_pending()
-            if pending_count < 1:
-                filter_pending_reports()
-        
+        if pending_count < 1:
+            filter_pending_reports()
+
     try:
         while True:
             pending_count, rows = check_pgrs_pending()
