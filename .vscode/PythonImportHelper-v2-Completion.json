@@ -330,7 +330,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def navigate_pages_until_pending(cycle, secund_page=False):\n    if secund_page:\n        try:            \n            wait_element(\".ngx-toastr.toast-info\", 60)\n        except:\n            pass\n    try:\n        while True:\n            pending_count, rows = check_pgrs_pending()\n            if pending_count > 0:",
+        "peekOfCode": "def navigate_pages_until_pending(cycle, secund_page=False):\n    if secund_page:\n        try:            \n            wait_element(\".ngx-toastr.toast-info\", 60)\n        except:\n            pass\n        pending_count, rows = check_pgrs_pending()\n        if pending_count < 1:\n            filter_pending_reports()\n    try:",
         "detail": "bot.scraper",
         "documentation": {}
     },

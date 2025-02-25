@@ -312,7 +312,7 @@ def fill_form(cycle):
     photo_files = [os.path.abspath(os.path.join(photos_dir, f"{i}.png")) for i in range(1, 5)]
     file_inputs = driver.find_elements(By.CSS_SELECTOR, "input[type='file']")
     if len(file_inputs) >= 4:
-        for file_input, photo_path in zip(file_inputs, photo_files):
+        for file_input, photo_path in zip(file_inputs[1:], photo_files):
             if os.path.exists(photo_path):
                 file_input.send_keys(photo_path)
                 time.sleep(0.5)
