@@ -61,6 +61,7 @@ EMAIL = os.getenv("EMAIL")
 PASSWORD = os.getenv("PASSWORD")
 
 LAST_CYCLE = None
+FILLING_AMOUNT = 0
 
 driver = init_driver()
 
@@ -76,8 +77,10 @@ def wait_element(css_selector=".div-loader", timeWait=30):
         print("✅ Element found!")
         wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))
         print("✅ Element invisible!")
+        return True
     except Exception as e:
         time.sleep(2)
+        return False
 
 
 def find_element_by_css(css_selector):
@@ -181,7 +184,7 @@ def select_cycle(cycle_text):
         raise e
 
 
-def filter_pending_reports():
+def filter_pending_reports(secund_page=False):
     global LAST_CYCLE
     wait = waitFunc()
     try:
@@ -213,7 +216,8 @@ def filter_pending_reports():
         pass
 
     while True:
-        cycle = get_available_cycle(skip_cycle=LAST_CYCLE)
+        skip = None if secund_page else LAST_CYCLE
+        cycle = get_available_cycle(skip_cycle=skip)
         if not cycle:
             print("🚫 Nenhum novo ciclo disponível. Finalizando execução.")
             return
@@ -238,7 +242,7 @@ def filter_pending_reports():
             print(f"❌ Erro ao clicar em um dos botões: {e}")
             raise e
 
-        has_pending_issues = navigate_pages_until_pending(cycle)
+        has_pending_issues = navigate_pages_until_pending(cycle, secund_page=secund_page)
         if has_pending_issues is None:
             print(f"❌ Erro ao verificar pendências no ciclo '{cycle}'. Tentando novamente...")
             continue
@@ -487,7 +491,6 @@ def fill_form(cycle):
     print("Passo 23: Inserindo área responsável")
     grupo2 = wait.until(EC.presence_of_element_located((By.XPATH, "(//resource-custom-field-forms-section-groups)[2]")))
     input_responsible_area = grupo2.find_element(By.XPATH, ".//table[1]//ng-select")
-    print("Área atual:", input_responsible_area.text)
     input_responsible_area.click()
     time.sleep(1)
     input_responsible_area = driver.switch_to.active_element
@@ -541,8 +544,16 @@ def fill_form(cycle):
     else:
         print("Passo 28: Formulário preenchido com sucesso!")
         
-    wait_element(".ngt-shining-xs")
-    print("✅ Formulário enviado com sucesso!")
+    result = wait_element(".ngt-shining-xs")
+    if not result:
+        print("Erro encontrado ao enviar o formulário... Reiniciando a página e iniciando novamente.")
+        driver.refresh()
+        time.sleep(1)
+        fill_form(cycle)
+        
+    global FILLING_AMOUNT
+    FILLING_AMOUNT += 1
+    print(f"✅ Formulário número {FILLING_AMOUNT} enviado com sucesso!")
     time.sleep(1)
     verify_hour()
     navigate_pages_until_pending(cycle, secund_page=True)
@@ -598,22 +609,27 @@ def check_pgrs_pending():
 
 def navigate_pages_until_pending(cycle, secund_page=False):
     if secund_page:
-        try:            
+        try:
             wait_element(".ngx-toastr.toast-info", 60)
-            wait_element(".block-page-div-loader", 10)
+            wait_element(".block-page-div-loader", 3)
         except:
             pass
         pending_count, rows = check_pgrs_pending()
         if pending_count < 1:
-            filter_pending_reports()
+            filter_pending_reports(secund_page=True)
+            return True
 
     try:
         while True:
             pending_count, rows = check_pgrs_pending()
+            
             if pending_count > 0:
                 close_pending_issues(rows, cycle)
                 return True
             else:
+                if pending_count == 0 and secund_page:
+                    return navigate_pages_until_pending(cycle, secund_page=True)
+                
                 print(f"✅ Não há pendências para o ciclo '{cycle}'.")
                 return False
     except Exception as e:

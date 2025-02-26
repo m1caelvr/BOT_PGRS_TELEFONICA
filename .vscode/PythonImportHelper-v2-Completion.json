@@ -213,7 +213,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Element found!\")\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Element invisible!\")\n    except Exception as e:\n        time.sleep(2)",
+        "peekOfCode": "def wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Element found!\")\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Element invisible!\")\n        return True\n    except Exception as e:",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -285,7 +285,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def filter_pending_reports():\n    global LAST_CYCLE\n    wait = waitFunc()\n    try:\n        parent_xpath = \"(//div[contains(@class, 'float-right ml-2 ng-star-inserted')])[2]\"\n        link_xpath = f\"{parent_xpath}//a[contains(@class, 'cursor-pointer ng-star-inserted')]\"\n        filter_button = wait.until(EC.element_to_be_clickable((By.XPATH, link_xpath)))\n        print(\"✅ Link encontrado.\")\n        filter_button.click()\n        print(\"✅ Clicado no link encontrado.\")",
+        "peekOfCode": "def filter_pending_reports(secund_page=False):\n    global LAST_CYCLE\n    wait = waitFunc()\n    try:\n        parent_xpath = \"(//div[contains(@class, 'float-right ml-2 ng-star-inserted')])[2]\"\n        link_xpath = f\"{parent_xpath}//a[contains(@class, 'cursor-pointer ng-star-inserted')]\"\n        filter_button = wait.until(EC.element_to_be_clickable((By.XPATH, link_xpath)))\n        print(\"✅ Link encontrado.\")\n        filter_button.click()\n        print(\"✅ Clicado no link encontrado.\")",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -330,7 +330,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def navigate_pages_until_pending(cycle, secund_page=False):\n    if secund_page:\n        try:            \n            wait_element(\".ngx-toastr.toast-info\", 60)\n            wait_element(\".block-page-div-loader\", 10)\n        except:\n            pass\n        pending_count, rows = check_pgrs_pending()\n        if pending_count < 1:\n            filter_pending_reports()",
+        "peekOfCode": "def navigate_pages_until_pending(cycle, secund_page=False):\n    if secund_page:\n        try:\n            wait_element(\".ngx-toastr.toast-info\", 60)\n            wait_element(\".block-page-div-loader\", 3)\n        except:\n            pass\n        pending_count, rows = check_pgrs_pending()\n        if pending_count < 1:\n            filter_pending_reports(secund_page=True)",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -348,7 +348,7 @@
         "kind": 5,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "EMAIL = os.getenv(\"EMAIL\")\nPASSWORD = os.getenv(\"PASSWORD\")\nLAST_CYCLE = None\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:",
+        "peekOfCode": "EMAIL = os.getenv(\"EMAIL\")\nPASSWORD = os.getenv(\"PASSWORD\")\nLAST_CYCLE = None\nFILLING_AMOUNT = 0\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -357,7 +357,7 @@
         "kind": 5,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "PASSWORD = os.getenv(\"PASSWORD\")\nLAST_CYCLE = None\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))",
+        "peekOfCode": "PASSWORD = os.getenv(\"PASSWORD\")\nLAST_CYCLE = None\nFILLING_AMOUNT = 0\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -366,7 +366,16 @@
         "kind": 5,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "LAST_CYCLE = None\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Element found!\")",
+        "peekOfCode": "LAST_CYCLE = None\nFILLING_AMOUNT = 0\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
+        "label": "FILLING_AMOUNT",
+        "kind": 5,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "FILLING_AMOUNT = 0\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Element found!\")",
         "detail": "bot.scraper",
         "documentation": {}
     },
