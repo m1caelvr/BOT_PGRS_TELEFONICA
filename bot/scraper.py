@@ -68,11 +68,14 @@ def waitFunc(timeWait=30):
     return WebDriverWait(driver, timeWait)
 
 
-def wait_element(css_selector=".div-loader.h-16.w-16.ng-tns-c303-1", timeWait=30):
+def wait_element(css_selector=".div-loader", timeWait=30):
+    print("⌛ Waiting for element:", css_selector)
     wait = waitFunc(timeWait)
     try:
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
+        print("✅ Element found!")
         wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))
+        print("✅ Element invisible!")
     except Exception as e:
         time.sleep(2)
 
@@ -96,7 +99,6 @@ def access_page(url):
     print(f"📄 Page title: {driver.title}")
     wait_element(".flex.items-center.justify-center.fixed.z-50.bg-gray-200.h-screen.w-screen.inset-0.ng-tns-c98-0.ng-star-inserted")
     print("✅ Page loaded!")
-    time.sleep(1)
 
 
 def fill_login_form():
@@ -106,8 +108,9 @@ def fill_login_form():
     login_input.send_keys(EMAIL)
     login_button.click()
     wait_element()
-    time.sleep(1)
     password_input = find_element_by_css("input.flex.border.appearance-none.leading-tight.w-full.pl-10.pr-4.pr-8.h-10.text-xs.border-gray-400.text-gray-800.rounded")
+    password_input.click()
+    time.sleep(.5)
     password_input.send_keys(PASSWORD)
     time.sleep(1)
     login_button = find_element_by_css("button.flex.justify-center.items-center.cursor-pointer")
@@ -115,6 +118,7 @@ def fill_login_form():
     wait_element()
     time.sleep(1)
     
+    wait = waitFunc(5)
     try:
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".swal2-popup.swal2-modal.swal2-icon-question.swal2-show")))
         print("⚠️  Dispositivo já conectado!")
@@ -286,8 +290,14 @@ def fill_form(cycle):
     input_field = click_input_field(1, tab=True)
     input_field.send_keys(Keys.TAB)
     active_field = driver.switch_to.active_element
+    body = driver.find_element(By.TAG_NAME, "body")
+    body.click()
+    time.sleep(.5)
+    active_field.click()
+    time.sleep(1)
     active_field.send_keys(ResponsesSPCAPITAL.ESTRUTURA_ARMAZENAMENTO)
     time.sleep(1)
+
 
     print("Passo 4: Preenchendo RESIDUOS_ENCAMINHADOS")
     input_field = click_input_field(2, tab=True)
@@ -309,26 +319,56 @@ def fill_form(cycle):
 
     print("Passo 6: Realizando upload de imagens")
     photos_dir = os.path.join("classes", "CYCLES", "SP_CAPITAL", "PHOTOS")
-    photo_files = [os.path.abspath(os.path.join(photos_dir, f"{i}.png")) for i in range(1, 5)]
     file_inputs = driver.find_elements(By.CSS_SELECTOR, "input[type='file']")
-    if len(file_inputs) >= 4:
+
+    if len(file_inputs) == 5:
+        cert_frente = os.path.abspath(os.path.join(photos_dir, "certificado_frente.jpg"))
+        cert_verso = os.path.abspath(os.path.join(photos_dir, "certificado_verso.jpg"))
+        if os.path.exists(cert_frente) and os.path.exists(cert_verso):
+            file_inputs[0].send_keys(cert_frente + "\n" + cert_verso)
+            time.sleep(0.5)
+        else:
+            if not os.path.exists(cert_frente):
+                print(f"❌ Arquivo não encontrado: {cert_frente}")
+            if not os.path.exists(cert_verso):
+                print(f"❌ Arquivo não encontrado: {cert_verso}")
+        photo_files = [os.path.abspath(os.path.join(photos_dir, f"{i}.png")) for i in range(1, 5)]
         for file_input, photo_path in zip(file_inputs[1:], photo_files):
             if os.path.exists(photo_path):
                 file_input.send_keys(photo_path)
                 time.sleep(0.5)
             else:
                 print(f"❌ Arquivo não encontrado: {photo_path}")
+                
+    elif len(file_inputs) == 4:
+        photo_files = [os.path.abspath(os.path.join(photos_dir, f"{i}.png")) for i in range(1, 5)]
+        for file_input, photo_path in zip(file_inputs, photo_files):
+            if os.path.exists(photo_path):
+                file_input.send_keys(photo_path)
+                time.sleep(0.5)
+            else:
+                print(f"❌ Arquivo não encontrado: {photo_path}")
     else:
-        print("❌ Não foram encontrados 4 campos de upload de arquivo.")
+        print("❌ Número inesperado de campos de upload de arquivo.")
 
     print("Passo 7: Avançando para os próximos campos")
-    click_input_field(4, tab=True)
-    input_field = click_input_field(5, tab=True)
-    input_field.send_keys(Keys.TAB)
-    active_field = driver.switch_to.active_element
-    active_field.send_keys(ResponsesSPCAPITAL.SUGESTAO_MELHORIA)
-    click_input_field(6, tab=True)
-    time.sleep(1)
+    if len(file_inputs) > 4:
+        click_input_field(4, tab=True)
+        click_input_field(5, tab=True)
+        input_field = click_input_field(6, tab=True)
+        input_field.send_keys(Keys.TAB)
+        active_field = driver.switch_to.active_element
+        active_field.send_keys(ResponsesSPCAPITAL.SUGESTAO_MELHORIA)
+        click_input_field(7, tab=True)
+        time.sleep(1)
+    else:
+        click_input_field(4, tab=True)
+        input_field = click_input_field(5, tab=True)
+        input_field.send_keys(Keys.TAB)
+        active_field = driver.switch_to.active_element
+        active_field.send_keys(ResponsesSPCAPITAL.SUGESTAO_MELHORIA)
+        click_input_field(6, tab=True)
+        time.sleep(1)
 
     print("Passo 8: Selecionando opção 'Lâmpadas'")
     lampadas_checkbox = driver.find_element(
@@ -359,7 +399,6 @@ def fill_form(cycle):
     time.sleep(1)
 
     print("Passo 12: Fechando dropdown")
-    body = driver.find_element(By.TAG_NAME, "body")
     body.click()
 
     print("Passo 13: Reabrindo dropdown de logística reversa")
@@ -475,6 +514,7 @@ def fill_form(cycle):
             span = label.find_element(By.XPATH, "./span[contains(text(), 'Sim')]")
             if span:
                 label.click()
+                time.sleep(0.5)
         except Exception:
             continue
 
@@ -488,8 +528,21 @@ def fill_form(cycle):
     except Exception:
         pass
     time.sleep(1)
+
+    error_elements = driver.find_elements(
+        By.XPATH,
+        "//div[contains(@class, 'w-full rounded-xl p-1 bg-red-500 text-white text-xs flex justify-center items-center mt-3 ng-star-inserted') and contains(text(), 'Preencha todos os dados corretamente')]"
+    )
+    if error_elements:
+        print("Erro: Dados incompletos. Reiniciando a página e iniciando novamente.")
+        driver.refresh()
+        time.sleep(1)
+        fill_form(cycle)
+    else:
+        print("Passo 28: Formulário preenchido com sucesso!")
+        
     wait_element(".ngt-shining-xs")
-    print("Passo 28: Formulário enviado com sucesso!")
+    print("✅ Formulário enviado com sucesso!")
     time.sleep(1)
     verify_hour()
     navigate_pages_until_pending(cycle, secund_page=True)
@@ -547,6 +600,7 @@ def navigate_pages_until_pending(cycle, secund_page=False):
     if secund_page:
         try:            
             wait_element(".ngx-toastr.toast-info", 60)
+            wait_element(".block-page-div-loader", 10)
         except:
             pass
         pending_count, rows = check_pgrs_pending()
