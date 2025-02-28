@@ -213,7 +213,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Element found!\")\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Element invisible!\")",
+        "peekOfCode": "def waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n        return True\n    except Exception as e:\n        time.sleep(2)",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -222,7 +222,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Element found!\")\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Element invisible!\")\n        return True\n    except Exception as e:",
+        "peekOfCode": "def wait_element(css_selector=\".div-loader\", timeWait=30):\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))\n        return True\n    except Exception as e:\n        time.sleep(2)\n        return False\ndef find_element_by_css(css_selector):",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -339,7 +339,7 @@
         "kind": 2,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "def navigate_pages_until_pending(cycle, secund_page=False):\n    if secund_page:\n        try:\n            wait_element(\".ngx-toastr.toast-info\", 60)\n            wait_element(\".block-page-div-loader\", 3)\n        except:\n            pass\n        pending_count, rows = check_pgrs_pending()\n        if pending_count < 1:\n            filter_pending_reports(secund_page=True)",
+        "peekOfCode": "def navigate_pages_until_pending(cycle, secund_page=False):\n    if secund_page:\n        try:\n            wait_element(\".ngx-toastr.toast-info\", 60)\n            wait_element(\".block-page-div-loader\", 3)\n        except:\n            pass\n        pending_count, rows = check_pgrs_pending()\n        if pending_count < 1:\n            restart_driver()",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -402,7 +402,7 @@
         "kind": 6,
         "importPath": "classes.CYCLES.SP_CAPITAL.SP_CAPITAL",
         "description": "classes.CYCLES.SP_CAPITAL.SP_CAPITAL",
-        "peekOfCode": "class SPCAPITAL:\n    CAN_FILL = True\n    NAME = \"SÃO PAULO CAPITAL\"\nclass ResponsesSPCAPITAL(SPCAPITAL):\n    ESTRUTURA_ARMAZENAMENTO = \"Área coberta, ventilada, piso impermeável, contém o coletor/tambor onde as lâmpadas são armazenadas de forma temporária até a coleta.\"\n    RESIDUOS_ENCAMINHADOS = \"Lâmpadas\"\n    EMPRESA_RESPONSAVEL = \"EQS ENGENHARIA S.A\"\n    ENDERECO_LOCAL = \"Rua Odete Gomes Barreto, 262 - Vila Nova Manchester São Paulo - SP\"\n    RESIDUOS_ARMAZENADOS = \"Lâmpadas\"\n    SUGESTAO_MELHORIA = \"Nenhuma sugestão de melhoria.\"",
+        "peekOfCode": "class SPCAPITAL:\n    CAN_FILL = False\n    NAME = \"SÃO PAULO CAPITAL\"\nclass ResponsesSPCAPITAL(SPCAPITAL):\n    ESTRUTURA_ARMAZENAMENTO = \"Área coberta, ventilada, piso impermeável, contém o coletor/tambor onde as lâmpadas são armazenadas de forma temporária até a coleta.\"\n    RESIDUOS_ENCAMINHADOS = \"Lâmpadas\"\n    EMPRESA_RESPONSAVEL = \"EQS ENGENHARIA S.A\"\n    ENDERECO_LOCAL = \"Rua Odete Gomes Barreto, 262 - Vila Nova Manchester São Paulo - SP\"\n    RESIDUOS_ARMAZENADOS = \"Lâmpadas\"\n    SUGESTAO_MELHORIA = \"Nenhuma sugestão de melhoria.\"",
         "detail": "classes.CYCLES.SP_CAPITAL.SP_CAPITAL",
         "documentation": {}
     },
@@ -413,6 +413,24 @@
         "description": "classes.CYCLES.SP_CAPITAL.SP_CAPITAL",
         "peekOfCode": "class ResponsesSPCAPITAL(SPCAPITAL):\n    ESTRUTURA_ARMAZENAMENTO = \"Área coberta, ventilada, piso impermeável, contém o coletor/tambor onde as lâmpadas são armazenadas de forma temporária até a coleta.\"\n    RESIDUOS_ENCAMINHADOS = \"Lâmpadas\"\n    EMPRESA_RESPONSAVEL = \"EQS ENGENHARIA S.A\"\n    ENDERECO_LOCAL = \"Rua Odete Gomes Barreto, 262 - Vila Nova Manchester São Paulo - SP\"\n    RESIDUOS_ARMAZENADOS = \"Lâmpadas\"\n    SUGESTAO_MELHORIA = \"Nenhuma sugestão de melhoria.\"\n    DIAGNOSTICO_RESIDUOS = \"Lâmpadas\"\n    TRATAMENTO = \"Descontaminação de lâmpadas\"\n    JUSTIFICATIVA = \"No processo de descontaminação os componentes das lâmpadas são separados para enviá-los à reciclagem ou viabilizar sua reutilização.\"",
         "detail": "classes.CYCLES.SP_CAPITAL.SP_CAPITAL",
+        "documentation": {}
+    },
+    {
+        "label": "SPINTERIOR",
+        "kind": 6,
+        "importPath": "classes.CYCLES.SP_INTERIOR.SP_INTERIOR",
+        "description": "classes.CYCLES.SP_INTERIOR.SP_INTERIOR",
+        "peekOfCode": "class SPINTERIOR:\n    CAN_FILL = True\n    NAME = \"SÃO PAULO INTERIOR\"\nclass ResponsesSPINTERIOR(SPINTERIOR):\n    ESTRUTURA_ARMAZENAMENTO = \"Área coberta, ventilada, piso impermeável, contém o coletor/tambor onde as lâmpadas são armazenadas de forma temporária até a coleta.\"\n    RESIDUOS_ENCAMINHADOS = \"Lâmpadas\"\n    EMPRESA_RESPONSAVEL = \"EQS ENGENHARIA S.A\"\n    ENDERECO_LOCAL = \"Rua Odete Gomes Barreto, 262 - Vila Nova Manchester São Paulo - SP\"\n    RESIDUOS_ARMAZENADOS = \"Lâmpadas\"\n    SUGESTAO_MELHORIA = \"Nenhuma sugestão de melhoria.\"",
+        "detail": "classes.CYCLES.SP_INTERIOR.SP_INTERIOR",
+        "documentation": {}
+    },
+    {
+        "label": "ResponsesSPINTERIOR",
+        "kind": 6,
+        "importPath": "classes.CYCLES.SP_INTERIOR.SP_INTERIOR",
+        "description": "classes.CYCLES.SP_INTERIOR.SP_INTERIOR",
+        "peekOfCode": "class ResponsesSPINTERIOR(SPINTERIOR):\n    ESTRUTURA_ARMAZENAMENTO = \"Área coberta, ventilada, piso impermeável, contém o coletor/tambor onde as lâmpadas são armazenadas de forma temporária até a coleta.\"\n    RESIDUOS_ENCAMINHADOS = \"Lâmpadas\"\n    EMPRESA_RESPONSAVEL = \"EQS ENGENHARIA S.A\"\n    ENDERECO_LOCAL = \"Rua Odete Gomes Barreto, 262 - Vila Nova Manchester São Paulo - SP\"\n    RESIDUOS_ARMAZENADOS = \"Lâmpadas\"\n    SUGESTAO_MELHORIA = \"Nenhuma sugestão de melhoria.\"\n    DIAGNOSTICO_RESIDUOS = \"Lâmpadas\"\n    TRATAMENTO = \"Descontaminação de lâmpadas\"\n    JUSTIFICATIVA = \"No processo de descontaminação os componentes das lâmpadas são separados para enviá-los à reciclagem ou viabilizar sua reutilização.\"",
+        "detail": "classes.CYCLES.SP_INTERIOR.SP_INTERIOR",
         "documentation": {}
     },
     {

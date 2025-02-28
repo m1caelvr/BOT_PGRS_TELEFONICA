@@ -83,13 +83,10 @@ def waitFunc(timeWait=30):
 
 
 def wait_element(css_selector=".div-loader", timeWait=30):
-    print("⌛ Waiting for element:", css_selector)
     wait = waitFunc(timeWait)
     try:
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
-        print("✅ Element found!")
         wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))
-        print("✅ Element invisible!")
         return True
     except Exception as e:
         time.sleep(2)
@@ -168,18 +165,22 @@ def get_available_cycle(skip_cycle=None):
         folder_path = os.path.join(cycles_path, cycle_folder)
         if os.path.isdir(folder_path):
             cycle_file = os.path.join(folder_path, f"{cycle_folder}.py")
+
             if os.path.exists(cycle_file):
                 spec = importlib.util.spec_from_file_location(cycle_folder, cycle_file)
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
                 class_name = cycle_folder.replace("_", "").upper()
                 cycle_class = getattr(module, class_name, None)
+
                 if cycle_class and hasattr(cycle_class, "CAN_FILL") and cycle_class.CAN_FILL:
                     cycle_name = cycle_class.NAME
+
                     if skip_cycle and cycle_name == skip_cycle:
                         continue
                     LAST_CYCLE = cycle_name
                     print(f"✅ Ciclo selecionado: {cycle_name}")
+
                     return cycle_name
     print("❌ Nenhum ciclo disponível para preenchimento.")
     return None
@@ -670,4 +671,3 @@ if __name__ == "__main__":
     print("🔹 Starting...")
     check_status()
     run_bot()
-    

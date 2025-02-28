@@ -1,8 +1,8 @@
-class SPCAPITAL:
-    CAN_FILL = False
-    NAME = "SÃO PAULO CAPITAL"
+class SPINTERIOR:
+    CAN_FILL = True
+    NAME = "SÃO PAULO INTERIOR"
     
-class ResponsesSPCAPITAL(SPCAPITAL):
+class ResponsesSPINTERIOR(SPINTERIOR):
     ESTRUTURA_ARMAZENAMENTO = "Área coberta, ventilada, piso impermeável, contém o coletor/tambor onde as lâmpadas são armazenadas de forma temporária até a coleta."
     RESIDUOS_ENCAMINHADOS = "Lâmpadas"
     EMPRESA_RESPONSAVEL = "EQS ENGENHARIA S.A"
