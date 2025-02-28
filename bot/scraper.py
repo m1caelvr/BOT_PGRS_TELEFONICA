@@ -65,6 +65,19 @@ FILLING_AMOUNT = 0
 
 driver = init_driver()
 
+def restart_driver():
+    global driver, LAST_CYCLE
+    try:
+        driver.quit()
+        print("Driver encerrado com sucesso.")
+    except Exception as e:
+        print("Erro ao encerrar o driver:", e)
+    driver = init_driver()
+    LAST_CYCLE = None
+    run_bot()
+    print("Driver reinicializado.")
+
+
 def waitFunc(timeWait=30):
     return WebDriverWait(driver, timeWait)
 
@@ -196,6 +209,7 @@ def filter_pending_reports(secund_page=False):
         print("✅ Clicado no link encontrado.")
     except Exception as e:
         print("❌ Erro: Não foi possível encontrar ou clicar no link.")
+        restart_driver()
         raise e
 
     time.sleep(2)
@@ -208,6 +222,7 @@ def filter_pending_reports(secund_page=False):
         find_city.click()
     except Exception as e:
         print(f"❌ Erro ao clicar no elemento: {e}")
+        restart_driver()
         raise e
 
     try:
@@ -544,8 +559,8 @@ def fill_form(cycle):
     else:
         print("Passo 28: Formulário preenchido com sucesso!")
         
-    result = wait_element(".ngt-shining-xs")
-    if not result:
+    result = wait_element(".ngt-shining-xs", 80)
+    if result == False:
         print("Erro encontrado ao enviar o formulário... Reiniciando a página e iniciando novamente.")
         driver.refresh()
         time.sleep(1)
@@ -584,6 +599,7 @@ def close_pending_issues(rows, cycle):
         fill_form(cycle)
     except Exception as e:
         print("❌ Erro ao fechar as pendências:", e)
+        restart_driver()
         raise e
 
 

@@ -200,6 +200,15 @@
         "documentation": {}
     },
     {
+        "label": "restart_driver",
+        "kind": 2,
+        "importPath": "bot.scraper",
+        "description": "bot.scraper",
+        "peekOfCode": "def restart_driver():\n    global driver, LAST_CYCLE\n    try:\n        driver.quit()\n        print(\"Driver encerrado com sucesso.\")\n    except Exception as e:\n        print(\"Erro ao encerrar o driver:\", e)\n    driver = init_driver()\n    LAST_CYCLE = None\n    run_bot()",
+        "detail": "bot.scraper",
+        "documentation": {}
+    },
+    {
         "label": "waitFunc",
         "kind": 2,
         "importPath": "bot.scraper",
@@ -348,7 +357,7 @@
         "kind": 5,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "EMAIL = os.getenv(\"EMAIL\")\nPASSWORD = os.getenv(\"PASSWORD\")\nLAST_CYCLE = None\nFILLING_AMOUNT = 0\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)",
+        "peekOfCode": "EMAIL = os.getenv(\"EMAIL\")\nPASSWORD = os.getenv(\"PASSWORD\")\nLAST_CYCLE = None\nFILLING_AMOUNT = 0\ndriver = init_driver()\ndef restart_driver():\n    global driver, LAST_CYCLE\n    try:\n        driver.quit()\n        print(\"Driver encerrado com sucesso.\")",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -357,7 +366,7 @@
         "kind": 5,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "PASSWORD = os.getenv(\"PASSWORD\")\nLAST_CYCLE = None\nFILLING_AMOUNT = 0\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:",
+        "peekOfCode": "PASSWORD = os.getenv(\"PASSWORD\")\nLAST_CYCLE = None\nFILLING_AMOUNT = 0\ndriver = init_driver()\ndef restart_driver():\n    global driver, LAST_CYCLE\n    try:\n        driver.quit()\n        print(\"Driver encerrado com sucesso.\")\n    except Exception as e:",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -366,7 +375,7 @@
         "kind": 5,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "LAST_CYCLE = None\nFILLING_AMOUNT = 0\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))",
+        "peekOfCode": "LAST_CYCLE = None\nFILLING_AMOUNT = 0\ndriver = init_driver()\ndef restart_driver():\n    global driver, LAST_CYCLE\n    try:\n        driver.quit()\n        print(\"Driver encerrado com sucesso.\")\n    except Exception as e:\n        print(\"Erro ao encerrar o driver:\", e)",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -375,7 +384,7 @@
         "kind": 5,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "FILLING_AMOUNT = 0\ndriver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Element found!\")",
+        "peekOfCode": "FILLING_AMOUNT = 0\ndriver = init_driver()\ndef restart_driver():\n    global driver, LAST_CYCLE\n    try:\n        driver.quit()\n        print(\"Driver encerrado com sucesso.\")\n    except Exception as e:\n        print(\"Erro ao encerrar o driver:\", e)\n    driver = init_driver()",
         "detail": "bot.scraper",
         "documentation": {}
     },
@@ -384,7 +393,7 @@
         "kind": 5,
         "importPath": "bot.scraper",
         "description": "bot.scraper",
-        "peekOfCode": "driver = init_driver()\ndef waitFunc(timeWait=30):\n    return WebDriverWait(driver, timeWait)\ndef wait_element(css_selector=\".div-loader\", timeWait=30):\n    print(\"⌛ Waiting for element:\", css_selector)\n    wait = waitFunc(timeWait)\n    try:\n        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))\n        print(\"✅ Element found!\")\n        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, css_selector)))",
+        "peekOfCode": "driver = init_driver()\ndef restart_driver():\n    global driver, LAST_CYCLE\n    try:\n        driver.quit()\n        print(\"Driver encerrado com sucesso.\")\n    except Exception as e:\n        print(\"Erro ao encerrar o driver:\", e)\n    driver = init_driver()\n    LAST_CYCLE = None",
         "detail": "bot.scraper",
         "documentation": {}
     },
