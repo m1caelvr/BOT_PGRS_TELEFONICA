@@ -568,7 +568,7 @@ def fill_form(cycle):
         
     global FILLING_AMOUNT
     FILLING_AMOUNT += 1
-    print(f"✅ Formulário número {FILLING_AMOUNT} enviado com sucesso!")
+    print(f"📄 Formulário número {FILLING_AMOUNT} enviado com sucesso!")
     time.sleep(1)
     verify_hour()
     navigate_pages_until_pending(cycle, secund_page=True)
