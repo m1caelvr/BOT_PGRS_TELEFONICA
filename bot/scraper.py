@@ -632,7 +632,7 @@ def navigate_pages_until_pending(cycle, secund_page=False):
             pass
         pending_count, rows = check_pgrs_pending()
         if pending_count < 1:
-            filter_pending_reports(secund_page=True)
+            restart_driver()
             return True
 
     try:
@@ -644,7 +644,7 @@ def navigate_pages_until_pending(cycle, secund_page=False):
                 return True
             else:
                 if pending_count == 0 and secund_page:
-                    return navigate_pages_until_pending(cycle, secund_page=True)
+                    return restart_driver()
                 
                 print(f"✅ Não há pendências para o ciclo '{cycle}'.")
                 return False
