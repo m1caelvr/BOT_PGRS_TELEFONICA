@@ -520,11 +520,15 @@ def fill_form(cycle):
     print("Passo 24: Inserindo website de transporte")
     website_ng_select = driver.switch_to.active_element
     website_ng_select.send_keys(ResponsesSPCAPITAL.WEBSITE_TRANSPORTE)
+    time.sleep(.5)
     website_ng_select.send_keys(Keys.TAB)
+    time.sleep(1)
 
     print("Passo 25: Inserindo website de destinação")
     website_ng_select = driver.switch_to.active_element
+    time.sleep(1)
     website_ng_select.send_keys(ResponsesSPCAPITAL.WEBSITE_DESTINACAO)
+    time.sleep(1)
 
     print("Passo 26: Selecionando opção 'Sim'")
     labels = driver.find_elements(By.XPATH, "(//resource-custom-field-forms-section-groups)[2]//select-field//label")
